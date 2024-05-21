@@ -24,3 +24,19 @@ Broadening our git vocabulary can be one of the keys for managing all this compl
 * hooks
 * submodules/subtrees
 * IDE integration and git clients
+
+## adding chapters
+
+Each chapter is a little sandboxed nested root which is registered as a submodule. The motivation is to have a little demo repository that is designed for play with the topics included
+
+```bash
+cd ../chapters
+mkdir 01_commits
+cd 01_commits
+git init
+git echo "Submodule repository" > README.md
+git add README.md
+git commit -m "initial submodule commit"
+cd ../..
+git submodule add -- <absolute path to repo> chapters/01_commits
+```
