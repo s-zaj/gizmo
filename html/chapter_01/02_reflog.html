@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>02_reflog.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="reflog-gits-safety-net">Reflog: Git's Safety Net</h1>
+<p>It records chronologically almost every change you make in your repository, regardless of whether you committed or not.</p>
+<pre class="hljs"><code><div>git reflog
+</div></code></pre>
+<p>We reference commits stored in the reflog using the <code>HEAD{}</code> syntax.</p>
+<pre class="hljs"><code><div>git checkout HEAD@{32}
+</div></code></pre>
+<h2 id="exercises">Exercises</h2>
+<h3 id="case-1-finding-a-lost-commit">Case 1: Finding a lost commit</h3>
+<p>Previously we created a tag on a commit which we made while in the Detached HEAD state.
+Life continues, and we switch to the main branch.</p>
+<p>Then we delete the tag by mistake.The commit is still in the database, because we only removed the tag. But how would we get back to it?</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># We could write down the commit hash.</span>
+
+git checkout main
+git rev-parse --verify v0
+git checkout v0
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Simulate fat fingers by deleting the tag</span>
+
+$ git tag -d v0
+Deleted tag <span class="hljs-string">'v0'</span> (was 37b8d2a)
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Try to checkout the ref</span>
+
+$ git checkout v0
+error: pathspec <span class="hljs-string">'v0'</span> did not match any file(s) known to git
+
+<span class="hljs-comment"># Commit still exists but we have no nice ref (alias) to get back to it</span>
+
+$ git show 37b8d2a
+
+commit 37b8d2a07c2020ed6d3c09bc9ec52b12bdbd3d15 (tag: v0.0.0)
+Author: s-zaj &lt;aelialper@gmail.com&gt;
+Date:   Wed May 22 09:59:52 2024 +0200
+
+    my best multi-lingual pun so far
+
+added: 13_the_lost_ark.md
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># What if we are in a context where we don't have the hash in the terminal output anymore?</span>
+
+<span class="hljs-comment"># Use reflog to see the chronology of the actions you performed</span>
+git reflog
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Note on using 'git tag' instead of just writing to regular text file refs/tags/v0</span>
+
+git checkout $(git rev-parse main)
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"The Lost Ark"</span> &gt; 13_the_lost_ark.md
+git add -A &amp;&amp; git commit -m <span class="hljs-string">"my best multi-lingual pun so far"</span>
+
+<span class="hljs-comment"># We could do this and it would work</span>
+<span class="hljs-built_in">echo</span> $(git rev-parse HEAD) &gt; .git/refs/tags/v0
+
+<span class="hljs-comment"># But it does not get recorded in the reflog in the same way</span>
+git reflog
+
+</div></code></pre>
+<h3 id="case-2-recover-from-accidental-reset---hard">Case 2: Recover from accidental 'reset --hard'</h3>
+<p>You made an awesome branch, but did not push, and reset it during debugging</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Checkout existing feature branch</span>
+git checkout feature
+
+<span class="hljs-comment"># Hard reset to 2 commits before HEAD</span>
+git reset --hard HEAD~2
+
+<span class="hljs-comment"># Whoops</span>
+git <span class="hljs-built_in">log</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># reflog to the rescue</span>
+$ git reflog
+
+9716883 (HEAD -&gt; feature) HEAD@{0}: reset: moving to HEAD~2
+80c81c9 (origin/feature) HEAD@{1}: checkout: moving from main to feature
+db5fd77 (origin/main, main) HEAD@{2}: checkout: moving from feature to main
+c51e638 HEAD@{3}: checkout: moving from feature to main
+bfcf6ea HEAD@{4}: commit: conclude idea
+a54e002 HEAD@{5}: commit: develop idea
+a312ce1 HEAD@{6}: commit: using git to invent a timemachine
+</div></code></pre>
+<pre class="hljs"><code><div>git checkout HEAD@{4}
+git <span class="hljs-built_in">log</span>
+</div></code></pre>
+
+</body>
+</html>

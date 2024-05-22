@@ -1,6 +1,6 @@
 [submodule "chapters/gizmo_01_commits"]
 	path = chapters/gizmo_01_commits
-	url = /home/ali/Documents/blog/git/gizmo/chapters/gizmo_01_commits
+	url = git@github.com:s-zaj/gizmo_01_commits.git
 	branch = main
 [submodule "chapters/gizmo_02_branches"]
 	path = chapters/gizmo_02_branches
