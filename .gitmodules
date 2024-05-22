@@ -1,12 +1,16 @@
 [submodule "chapters/gizmo_01_commits"]
 	path = chapters/gizmo_01_commits
 	url = /home/ali/Documents/blog/git/gizmo/chapters/gizmo_01_commits
+	branch = main
 [submodule "chapters/gizmo_02_branches"]
 	path = chapters/gizmo_02_branches
 	url = /home/ali/Documents/blog/git/gizmo/chapters/gizmo_02_branches
+	branch = main
 [submodule "chapters/gizmo_03_debugging"]
 	path = chapters/gizmo_03_debugging
 	url = /home/ali/Documents/blog/git/gizmo/chapters/gizmo_03_debugging
+	branch = main
 [submodule "chapters/gizmo_04_workflows"]
 	path = chapters/gizmo_04_workflows
 	url = /home/ali/Documents/blog/git/gizmo/chapters/gizmo_04_workflows
+	branch = main

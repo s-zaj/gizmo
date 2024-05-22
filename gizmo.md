@@ -30,6 +30,9 @@ Broadening our git vocabulary can be one of the keys for managing all this compl
 ```bash
 git clone --recurse-submodules git@github.com:s-zaj/gizmo.git
 
+# if you have already cloned
+git submodule update --init --recursive
+
 # after initial clone, updating submnodules
 git submodule update --recursive --remote
 ```
