@@ -25,6 +25,12 @@ Broadening our git vocabulary can be one of the keys for managing all this compl
 * submodules/subtrees
 * IDE integration and git clients
 
+## get the chapters
+
+```bash
+git clone --recurse-submodules git@github.com:s-zaj/gizmo.git
+```
+
 ## adding chapters
 
 Each chapter is a little sandboxed nested root which is registered as a submodule. The motivation is to have a little demo repository that is designed for play with the topics included
