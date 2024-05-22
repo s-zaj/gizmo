@@ -29,6 +29,9 @@ Broadening our git vocabulary can be one of the keys for managing all this compl
 
 ```bash
 git clone --recurse-submodules git@github.com:s-zaj/gizmo.git
+
+# after initial clone, updating submnodules
+git submodule update --recursive --remote
 ```
 
 ## adding chapters
